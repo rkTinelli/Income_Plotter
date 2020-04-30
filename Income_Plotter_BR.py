@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
+import matplotlib.pyplot as plt
 
 options = Options()
 options.page_load_strategy = 'eager'
@@ -17,7 +18,7 @@ def createAnalysisList(starValue,endValue,step):
 # Initial variables
 startValue = 1000.00
 endValue = 10000.00
-step = 500.00
+step = 250.00
 
 # Initialize empty lists for analysis
 grossIncome = createAnalysisList(startValue,endValue,step)
@@ -47,5 +48,8 @@ with webdriver.Chrome(options=options) as driver:
         valor = valor.replace(",",".")
         realIncome.append(float(valor))
 
-print(grossIncome)
-print(realIncome)
+plt.plot(grossIncome, realIncome)
+plt.xlabel("Gross Income", fontsize=14)
+plt.ylabel("Real Income", fontsize=14)
+plt.axis([0, grossIncome[-1] + step, 0, realIncome[-1] + step])
+plt.show()
