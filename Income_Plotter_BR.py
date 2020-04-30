@@ -18,7 +18,7 @@ def createAnalysisList(starValue,endValue,step):
 # Initial variables
 startValue = 1000.00
 endValue = 10000.00
-step = 250.00
+step = 1000.00
 
 # Initialize empty lists for analysis
 grossIncome = createAnalysisList(startValue,endValue,step)
@@ -41,12 +41,12 @@ with webdriver.Chrome(options=options) as driver:
         time.sleep(1) # Wait to make sure the calculation was done
 
         # Identify the element from the table using it's XPath
-        resultado = driver.find_element_by_xpath("//*[@id='calculator-result']/div[3]/table/tbody/tr[6]/td[2]")
+        result = driver.find_element_by_xpath("//*[@id='calculator-result']/div[3]/table/tbody/tr[6]/td[2]")
         # Get the inner HTML, remove the first and second characters (R$) and the "."
-        valor = resultado.get_attribute("innerHTML")[2:].replace(".","")
+        value = result.get_attribute("innerHTML")[2:].replace(".","")
         # Change the cents separator from , to .
-        valor = valor.replace(",",".")
-        realIncome.append(float(valor))
+        value = value.replace(",",".")
+        realIncome.append(float(value))
 
 plt.plot(grossIncome, realIncome)
 plt.xlabel("Gross Income", fontsize=14)
